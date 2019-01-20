@@ -1,6 +1,8 @@
 package com.testdemo.holyg.gittest;
 
 import android.Manifest;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -34,9 +36,22 @@ public  class MainActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.cameraBtn:
-                Intent intent = new Intent();
-                intent.setClass(MainActivity.this,Camera.class);
-                startActivity(intent);
+                Intent intentcam = new Intent();
+                intentcam.setClass(MainActivity.this,Camera.class);
+                startActivity(intentcam);
+            case R.id.picBtn:
+                new AlertDialog.Builder(this)
+                        .setTitle("Plz Chose Mode")
+                        .setItems(new String[]{"Open file", "Take photo"}, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                switch (which){
+                                    case 1:
+                                }
+                            }
+                        })
+                        .show();
+            break;
         }
     }
 }
