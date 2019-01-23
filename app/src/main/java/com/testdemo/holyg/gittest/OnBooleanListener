@@ -1,5 +1,5 @@
 package com.testdemo.holyg.gittest;
 
 public interface OnBooleanListener{
-    void onClick(boolean bin);
+    void onClick(boolean bln);
 }
