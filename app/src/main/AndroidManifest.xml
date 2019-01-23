@@ -37,10 +37,6 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_camera"
             android:theme="@style/FullscreenTheme" />
-
-        <meta-data
-            android:name="com.google.android.actions"
-            android:resource="@xml/path" />
     </application>
 
 </manifest>
