@@ -124,6 +124,11 @@ public  class MainActivity extends AppCompatActivity implements View.OnClickList
 
                                                     if (bln) {
                                                         Log.d("MainActivity", "进入权限11");
+                                                        Intent intent = new Intent ("android.media.action.IMAGE_CAPTURE");
+                                                        ContentValues values = new ContentValues(1);
+                                                        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+                                                        Uri uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+                                                        startActivityForResult(intent, REQUEST_CODE_IMAGE_CAMERA);
                                                         //Intent intent = new Intent(MainActivity.this, CaptureActivity.class);
                                                         //startActivity(intent);
                                                     } else {
