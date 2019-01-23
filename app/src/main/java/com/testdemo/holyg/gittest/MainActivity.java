@@ -60,7 +60,6 @@ public  class MainActivity extends AppCompatActivity implements View.OnClickList
                                         getImageByalbum.setType("image/jpeg");
                                         startActivityForResult(getImageByalbum,REQUEST_CODE_IMAGE_OP);
                                         break;
-                                        default:;
                                     case 1:
                                         Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
                                         ContentValues values = new ContentValues(1);
@@ -69,11 +68,13 @@ public  class MainActivity extends AppCompatActivity implements View.OnClickList
                                         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
                                         startActivityForResult(intent, REQUEST_CODE_IMAGE_CAMERA);
                                         break;
+                                    default:;
                             }
                             }
                         })
                         .show();
             break;
+            default:;
         }
     }
 }
