@@ -5,7 +5,9 @@
     <!-- camera -->
     <uses-permission android:name="android.permission.CAMERA" />
     <!-- sdcard -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
     <!-- wifi internet -->
     <uses-permission android:name="android.permission.INTERNET" />
 

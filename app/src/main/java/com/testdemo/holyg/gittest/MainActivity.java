@@ -4,8 +4,10 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.DocumentsContract;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.ActivityCompat;
@@ -25,16 +27,20 @@ import android.os.Build;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.File;
+
 public  class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private OnBooleanListener onPermissionListener;
 
     private static final int REQUEST_CODE_IMAGE_CAMERA = 1;
     private static final int REQUEST_CODE_IMAGE_OP = 2;
     private static final int REQUEST_CODE_OP = 3;
+    private static final String PHOTO_FILE_NAME = "temp.png";
 
     Button picBtn;
     Button camBtn;
 
+    File tempFile;
 
     public void onPermissionRequests(String permission, OnBooleanListener onBooleanListener) {
         onPermissionListener = onBooleanListener;
@@ -124,15 +130,24 @@ public  class MainActivity extends AppCompatActivity implements View.OnClickList
 
                                                     if (bln) {
                                                         Log.d("MainActivity", "进入权限11");
-                                                        Intent intent = new Intent ("android.media.action.IMAGE_CAPTURE");
-                                                        ContentValues values = new ContentValues(1);
-                                                        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
-                                                        Uri uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+                                                        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+                                                        tempFile = new File(Environment.getExternalStorageDirectory(),
+                                                                PHOTO_FILE_NAME);
+                                                        Uri uri;
+                                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                                            uri = FileProvider.getUriForFile(
+                                                                    MainActivity.this, "com.testdemo.holyg.gittest.fileprovider",
+                                                                    tempFile);
+                                                            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                                                        } else {
+                                                            uri = Uri.fromFile(tempFile);
+                                                        }
+                                                        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
                                                         startActivityForResult(intent, REQUEST_CODE_IMAGE_CAMERA);
                                                         //Intent intent = new Intent(MainActivity.this, CaptureActivity.class);
                                                         //startActivity(intent);
                                                     } else {
-                                                        Toast.makeText(MainActivity.this, "扫码拍照或无法正常使用", Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(MainActivity.this, "拍照或无法正常使用", Toast.LENGTH_SHORT).show();
                                                     }
                                                 }
                                             });
