@@ -35,7 +35,8 @@ public  class MainActivity extends AppCompatActivity implements View.OnClickList
     private static final int REQUEST_CODE_IMAGE_CAMERA = 1;
     private static final int REQUEST_CODE_IMAGE_OP = 2;
     private static final int REQUEST_CODE_OP = 3;
-    private static final String PHOTO_FILE_NAME = "temp.png";
+    public static final String PHOTO_FILE_NAME = "temp.png";
+
 
     Button picBtn;
     Button camBtn;
@@ -66,6 +67,7 @@ public  class MainActivity extends AppCompatActivity implements View.OnClickList
                     permission));
         }
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -101,6 +103,37 @@ public  class MainActivity extends AppCompatActivity implements View.OnClickList
 
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        System.out.println(requestCode);
+        System.out.println("数据" +" "+ resultCode + " " + this.RESULT_OK);
+        if(requestCode == REQUEST_CODE_IMAGE_CAMERA && resultCode == this.RESULT_OK){
+            Uri uri;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                uri = FileProvider.getUriForFile(
+                        this, "com.testdemo.holyg.gittest.fileprovider",
+                        tempFile);
+                System.out.println(uri+" high");
+            } else{
+                uri = Uri.fromFile(tempFile);
+                System.out.println(uri+" low");
+            }
+        }
+        else if(requestCode == REQUEST_CODE_IMAGE_OP){
+            if (data != null) {
+                // 得到图片的全路径
+                Uri uri = data.getData();
+                System.out.println(uri);
+            }
+        }
+        else{
+            System.out.println("Do not have correct request");
+            return;
+        }
+
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.cameraBtn:
@@ -133,6 +166,7 @@ public  class MainActivity extends AppCompatActivity implements View.OnClickList
                                                         Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
                                                         tempFile = new File(Environment.getExternalStorageDirectory(),
                                                                 PHOTO_FILE_NAME);
+                                                        //System.out.println("file created successfully");
                                                         Uri uri;
                                                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                                                             uri = FileProvider.getUriForFile(
@@ -144,16 +178,14 @@ public  class MainActivity extends AppCompatActivity implements View.OnClickList
                                                         }
                                                         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
                                                         startActivityForResult(intent, REQUEST_CODE_IMAGE_CAMERA);
-                                                        //Intent intent = new Intent(MainActivity.this, CaptureActivity.class);
-                                                        //startActivity(intent);
                                                     } else {
                                                         Toast.makeText(MainActivity.this, "拍照或无法正常使用", Toast.LENGTH_SHORT).show();
                                                     }
                                                 }
                                             });
                                         } else {
-                                            //Intent intent = new Intent(MainActivity.this, CaptureActivity.class);
-                                            //startActivity(intent);
+                                            Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+                                            startActivityForResult(intent,REQUEST_CODE_IMAGE_CAMERA);
                                         }
                                         break;
                                     default:;
@@ -165,4 +197,7 @@ public  class MainActivity extends AppCompatActivity implements View.OnClickList
             default:;
         }
     }
+
+
+
 }
