@@ -107,16 +107,22 @@ public  class MainActivity extends AppCompatActivity implements View.OnClickList
         super.onActivityResult(requestCode, resultCode, data);
         System.out.println(requestCode);
         System.out.println("数据" +" "+ resultCode + " " + this.RESULT_OK);
-        if(requestCode == REQUEST_CODE_IMAGE_CAMERA && resultCode == this.RESULT_OK){
+        if(requestCode == REQUEST_CODE_IMAGE_CAMERA && requestCode == this.RESULT_OK){
             Uri uri;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 uri = FileProvider.getUriForFile(
                         this, "com.testdemo.holyg.gittest.fileprovider",
                         tempFile);
                 System.out.println(uri+" high");
+                Intent intent = new Intent(this,picShowActivity.class);
+                intent.putExtra("imageUri",uri.toString());
+                startActivity(intent);
             } else{
                 uri = Uri.fromFile(tempFile);
                 System.out.println(uri+" low");
+                Intent intent = new Intent(this,picShowActivity.class);
+                intent.putExtra("imageUri",uri.toString());
+                startActivity(intent);
             }
         }
         else if(requestCode == REQUEST_CODE_IMAGE_OP){
@@ -124,13 +130,15 @@ public  class MainActivity extends AppCompatActivity implements View.OnClickList
                 // 得到图片的全路径
                 Uri uri = data.getData();
                 System.out.println(uri);
+                Intent intent = new Intent(this,picShowActivity.class);
+                intent.putExtra("imageUri",uri.toString());
+                startActivity(intent);
             }
         }
         else{
             System.out.println("Do not have correct request");
             return;
         }
-
     }
 
     @Override
