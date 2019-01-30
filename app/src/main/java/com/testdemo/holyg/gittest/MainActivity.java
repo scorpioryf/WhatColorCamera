@@ -107,7 +107,7 @@ public  class MainActivity extends AppCompatActivity implements View.OnClickList
         super.onActivityResult(requestCode, resultCode, data);
         System.out.println(requestCode);
         System.out.println("数据" +" "+ resultCode + " " + this.RESULT_OK);
-        if(requestCode == REQUEST_CODE_IMAGE_CAMERA && requestCode == this.RESULT_OK){
+        if(requestCode == REQUEST_CODE_IMAGE_CAMERA && resultCode == this.RESULT_OK){
             Uri uri;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 uri = FileProvider.getUriForFile(
@@ -168,11 +168,10 @@ public  class MainActivity extends AppCompatActivity implements View.OnClickList
                                             onPermissionRequests(Manifest.permission.CAMERA, new OnBooleanListener() {
                                                 @Override
                                                 public void onClick(boolean bln) {
-
                                                     if (bln) {
                                                         Log.d("MainActivity", "进入权限11");
                                                         Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-                                                        tempFile = new File(Environment.getExternalStorageDirectory(),
+                                                        tempFile = new File(MainActivity.this.getExternalCacheDir(),
                                                                 PHOTO_FILE_NAME);
                                                         //System.out.println("file created successfully");
                                                         Uri uri;
@@ -193,6 +192,10 @@ public  class MainActivity extends AppCompatActivity implements View.OnClickList
                                             });
                                         } else {
                                             Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+                                            Uri uri;
+                                            File tempFile = new File(MainActivity.this.getExternalCacheDir(),PHOTO_FILE_NAME);
+                                            uri = Uri.fromFile(tempFile);
+                                            intent.putExtra(MediaStore.EXTRA_OUTPUT,uri);
                                             startActivityForResult(intent,REQUEST_CODE_IMAGE_CAMERA);
                                         }
                                         break;
