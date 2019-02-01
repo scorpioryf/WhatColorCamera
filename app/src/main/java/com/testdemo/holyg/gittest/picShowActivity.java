@@ -39,6 +39,8 @@ public class picShowActivity extends AppCompatActivity {
         Bitmap bitmap = null;
         back.setOnClickListener(buttonListener);
 
+        System.out.println(stringFromJNI());
+
         try {
             bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
         } catch (Exception e) {
@@ -46,8 +48,11 @@ public class picShowActivity extends AppCompatActivity {
             Log.e("[Android]", "目录为:" + uri);
             e.printStackTrace();
         }
+
         ImageView imageView = (ImageView)findViewById(R.id.imageView);
         imageView.setImageBitmap(bitmap);
+
+
     }
 
     private Button.OnClickListener buttonListener = new Button.OnClickListener(){
@@ -62,4 +67,10 @@ public class picShowActivity extends AppCompatActivity {
         }
     };
 
+    public native String stringFromJNI();
+
+    // Used to load the 'native-lib' library on application startup.
+    static {
+        System.loadLibrary("native-lib");
+    }
 }
