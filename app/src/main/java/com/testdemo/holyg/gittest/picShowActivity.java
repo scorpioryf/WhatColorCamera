@@ -2,6 +2,7 @@ package com.testdemo.holyg.gittest;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -21,7 +23,9 @@ public class picShowActivity extends AppCompatActivity {
     private Button back;
     private Bitmap resultBitmap;
     private Uri uri;
-    private View view;
+    private ImageView imageView;
+    private SeekBar SeekbarK;
+    private SeekBar SeekbarK0;
 
 
     // Used to load the 'native-lib' library on application startup.
@@ -47,6 +51,9 @@ public class picShowActivity extends AppCompatActivity {
         Bitmap bitmap = null;
         back.setOnClickListener(buttonListener);
 
+        SeekbarK = (SeekBar)findViewById(R.id.seekBarK);
+        SeekbarK0 = (SeekBar)findViewById(R.id.seekBarK0);
+
         //System.out.println(stringFromJNI());
 
         try {
@@ -58,11 +65,12 @@ public class picShowActivity extends AppCompatActivity {
         }
         resultBitmap = new ImgProcess().bitmap2jni(bitmap);
         //opencvPicShow(uri.toString());
-        ImageView imageView = (ImageView)findViewById(R.id.imageView);
+        imageView = (ImageView)findViewById(R.id.imageView);
+        imageView.setOnClickListener(imgListener);
+        imageView.setBackgroundColor(Color.BLACK);
         imageView.setImageBitmap(resultBitmap);
-
-
     }
+
 
     private Button.OnClickListener buttonListener = new Button.OnClickListener(){
         public void onClick(View v){
@@ -72,6 +80,26 @@ public class picShowActivity extends AppCompatActivity {
                     break;
                  default:
                         break;
+            }
+        }
+    };
+
+    private ImageView.OnClickListener imgListener = new ImageView.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()){
+                case R.id.imageView:
+                    if(SeekbarK.getVisibility()==View.VISIBLE){
+                        SeekbarK.setVisibility(View.INVISIBLE);
+                        SeekbarK0.setVisibility(View.INVISIBLE);
+                    }else{
+                        SeekbarK.setVisibility(View.VISIBLE);
+                        SeekbarK0.setVisibility(View.INVISIBLE);
+                    }
+                    break;
+
+                default:
+                    break;
             }
         }
     };

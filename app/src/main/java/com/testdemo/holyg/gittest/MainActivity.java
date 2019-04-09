@@ -1,30 +1,21 @@
 package com.testdemo.holyg.gittest;
 
 import android.Manifest;
-import android.app.Activity;
-import android.content.ContentValues;
 import android.content.DialogInterface;
-import android.os.Environment;
 import android.provider.MediaStore;
-import android.provider.DocumentsContract;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.net.Uri;
 import android.content.pm.PackageManager;
-import android.view.View.OnClickListener;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.util.Log;
 import android.os.Build;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.File;
@@ -145,9 +136,25 @@ public  class MainActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.cameraBtn:
-                Intent intentcam = new Intent();
-                intentcam.setClass(MainActivity.this,Camera.class);
-                startActivity(intentcam);
+                final Intent intentcam = new Intent();
+                intentcam.setClass(MainActivity.this, Camera.class);
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    onPermissionRequests(Manifest.permission.CAMERA, new OnBooleanListener() {
+                        @Override
+                        public void onClick(boolean bln) {
+                            if (bln) {
+                                Log.d("MainActivity", "进入权限11");
+                                startActivity(intentcam);
+                            }
+                            else{
+                                Toast.makeText(MainActivity.this, "拍照或无法正常使用", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }else{
+                    startActivity(intentcam);
+                }
+
                 break;
             case R.id.picBtn:
                 new AlertDialog.Builder(this)
