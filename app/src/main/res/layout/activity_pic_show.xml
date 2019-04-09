@@ -6,34 +6,6 @@
     android:layout_height="match_parent">
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical">
-
-        <SeekBar
-            android:id="@+id/seekBarK"
-            style="@android:style/Widget.Material.SeekBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginHorizontal="20dp"
-            android:max="10"
-            android:min="0"
-            android:progress="3" />
-        <SeekBar
-            android:id="@+id/seekBarK0"
-            style="@android:style/Widget.Material.SeekBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginHorizontal="20dp"
-            android:max="10"
-            android:min="0"
-            android:progress="3" />
-    </LinearLayout>
-
     <RelativeLayout
         android:id="@+id/titleLayout"
         android:layout_width="match_parent"
@@ -57,5 +29,34 @@
         android:drawableLeft="@mipmap/test0001"
         android:paddingLeft="3dp"
         android:textSize="0sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <SeekBar
+            android:id="@+id/seekBarK"
+            style="@android:style/Widget.Material.SeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="10dp"
+            android:max="10"
+            android:min="0"
+            android:progress="3" />
+
+        <SeekBar
+            android:id="@+id/seekBarK0"
+            style="@android:style/Widget.Material.SeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="10dp"
+            android:max="10"
+            android:min="0"
+            android:progress="3" />
+    </LinearLayout>
 
 </RelativeLayout>

@@ -87,14 +87,16 @@ public class picShowActivity extends AppCompatActivity {
     private ImageView.OnClickListener imgListener = new ImageView.OnClickListener() {
         @Override
         public void onClick(View v) {
+            Log.d("Android","img OnClick");
             switch (v.getId()){
                 case R.id.imageView:
                     if(SeekbarK.getVisibility()==View.VISIBLE){
                         SeekbarK.setVisibility(View.INVISIBLE);
                         SeekbarK0.setVisibility(View.INVISIBLE);
+
                     }else{
                         SeekbarK.setVisibility(View.VISIBLE);
-                        SeekbarK0.setVisibility(View.INVISIBLE);
+                        SeekbarK0.setVisibility(View.VISIBLE);
                     }
                     break;
 
