@@ -38,25 +38,23 @@
 
         <SeekBar
             android:id="@+id/seekBarK"
-            style="@android:style/Widget.Material.SeekBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginBottom="10dp"
-            android:max="10"
+            android:max="100"
             android:min="0"
-            android:progress="3" />
+            android:progress="50" />
 
         <SeekBar
             android:id="@+id/seekBarK0"
-            style="@android:style/Widget.Material.SeekBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginBottom="10dp"
-            android:max="10"
+            android:max="100"
             android:min="0"
-            android:progress="3" />
+            android:progress="50" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -44,7 +44,7 @@ std::string jstring2str(JNIEnv* env, jstring jstr)
 
 extern "C"
 JNIEXPORT jintArray JNICALL
-Java_com_testdemo_holyg_gittest_ImgProcess_opencvPicProcess(JNIEnv *env, jobject instance,jintArray buf,jint w,jint h) {
+Java_com_testdemo_holyg_gittest_ImgProcess_opencvPicProcess(JNIEnv *env, jobject instance,jintArray buf,jint w,jint h,jdouble K,jdouble K0) {
 
     // TODO
     jint *cbuf;
@@ -65,12 +65,12 @@ Java_com_testdemo_holyg_gittest_ImgProcess_opencvPicProcess(JNIEnv *env, jobject
 //    cvtColor(imgData,imgData,COLOR_RGBA2RGB,4);
     cvtColor(imgData,imgData,COLOR_RGB2HSV,4);
     split(imgData,channels);
-    float k0 = 0.23;
-    float K = 1.45;
+    float k = K;//0.23
+    float k0 = K0;//1.45
     for (int i = 0; i < h; ++i) {
         for (int j = 0; j <w; ++j) {
             float a = channels[1].at<uchar>(i,j);
-            a = a * K + k0;
+            a = a * k + k0;
             if(a>255){
                 a = 255;
             }

@@ -26,7 +26,9 @@ public class picShowActivity extends AppCompatActivity {
     private ImageView imageView;
     private SeekBar SeekbarK;
     private SeekBar SeekbarK0;
-
+    private double K = (float) 1.65;
+    private double K0 = (float) 0.20;
+    private Bitmap bitmap = null;
 
     // Used to load the 'native-lib' library on application startup.
     static {
@@ -37,7 +39,6 @@ public class picShowActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -48,11 +49,13 @@ public class picShowActivity extends AppCompatActivity {
         System.out.println("Uri = "+uri);
 
         back = (Button)findViewById(R.id.back);
-        Bitmap bitmap = null;
         back.setOnClickListener(buttonListener);
 
         SeekbarK = (SeekBar)findViewById(R.id.seekBarK);
         SeekbarK0 = (SeekBar)findViewById(R.id.seekBarK0);
+
+        SeekbarK0.setOnSeekBarChangeListener(seekBarK0ChangeListener);
+        SeekbarK.setOnSeekBarChangeListener(seekBarKChangeListener);
 
         //System.out.println(stringFromJNI());
 
@@ -63,7 +66,7 @@ public class picShowActivity extends AppCompatActivity {
             Log.e("[Android]", "目录为:" + uri);
             e.printStackTrace();
         }
-        resultBitmap = new ImgProcess().bitmap2jni(bitmap);
+        resultBitmap = new ImgProcess().bitmap2jni(bitmap,K,K0);
         //opencvPicShow(uri.toString());
         imageView = (ImageView)findViewById(R.id.imageView);
         imageView.setOnClickListener(imgListener);
@@ -103,6 +106,48 @@ public class picShowActivity extends AppCompatActivity {
                 default:
                     break;
             }
+        }
+    };
+
+    private SeekBar.OnSeekBarChangeListener seekBarKChangeListener = new SeekBar.OnSeekBarChangeListener() {
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            double ratio = (double) progress/100;
+            K = 1.0 + ratio*1.3;
+            Log.e("seekbarlistener", "onProgressChanged: K = "+K+" ratio = "+ratio+"progress = "+progress);
+
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+            resultBitmap = new ImgProcess().bitmap2jni(bitmap,K,K0);
+            imageView.setImageBitmap(resultBitmap);
+        }
+    };
+
+    private SeekBar.OnSeekBarChangeListener seekBarK0ChangeListener = new SeekBar.OnSeekBarChangeListener() {
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            double ratio = (double)progress/100;
+            K0 = ratio*0.4;
+            Log.e("seekbarlistener", "onProgressChanged: K0 = "+K0 +" ratio = "+ratio+"progress = "+progress);
+
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+            resultBitmap = new ImgProcess().bitmap2jni(bitmap,K,K0);
+            imageView.setImageBitmap(resultBitmap);
         }
     };
 
