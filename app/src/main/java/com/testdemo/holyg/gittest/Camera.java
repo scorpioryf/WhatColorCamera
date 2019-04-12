@@ -97,10 +97,11 @@ public class Camera extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_camera);
+        mSurfaceView = findViewById(R.id.surfaceView);
 
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
-        mSurfaceView = findViewById(R.id.surfaceView);
+
 
 
         // Set up the user interaction to manually show or hide the system UI.

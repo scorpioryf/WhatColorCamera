@@ -30,6 +30,20 @@
         android:paddingLeft="3dp"
         android:textSize="0sp" />
 
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="20dp"
+        android:layout_alignParentRight="true"
+        android:textOff="HSV"
+        android:textOn="RGB"
+        android:thumb="@drawable/thumb"
+        android:track="@drawable/track"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:showText="true" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,7 +68,7 @@
             android:layout_marginBottom="10dp"
             android:max="100"
             android:min="0"
-            android:progress="50" />
+            android:progress="0" />
     </LinearLayout>
 
 </RelativeLayout>

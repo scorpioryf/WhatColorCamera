@@ -44,7 +44,7 @@ std::string jstring2str(JNIEnv* env, jstring jstr)
 
 extern "C"
 JNIEXPORT jintArray JNICALL
-Java_com_testdemo_holyg_gittest_ImgProcess_opencvPicProcess(JNIEnv *env, jobject instance,jintArray buf,jint w,jint h,jdouble K,jdouble K0) {
+Java_com_testdemo_holyg_gittest_ImgProcess_opencvHSVProcess(JNIEnv *env, jobject instance,jintArray buf,jint w,jint h,jdouble K,jdouble K0) {
 
     // TODO
     jint *cbuf;
@@ -65,11 +65,11 @@ Java_com_testdemo_holyg_gittest_ImgProcess_opencvPicProcess(JNIEnv *env, jobject
 //    cvtColor(imgData,imgData,COLOR_RGBA2RGB,4);
     cvtColor(imgData,imgData,COLOR_RGB2HSV,4);
     split(imgData,channels);
-    float k = K;//0.23
-    float k0 = K0;//1.45
+    double k = K;//0.23
+    double k0 = K0;//1.45
     for (int i = 0; i < h; ++i) {
         for (int j = 0; j <w; ++j) {
-            float a = channels[1].at<uchar>(i,j);
+            double a = channels[1].at<uchar>(i,j);
             a = a * k + k0;
             if(a>255){
                 a = 255;
@@ -119,5 +119,43 @@ Java_com_testdemo_holyg_gittest_ImgProcess_opencvPicProcess(JNIEnv *env, jobject
     env->SetIntArrayRegion(result,0,size,(jint*)imgData.data);
     env->ReleaseIntArrayElements(buf,cbuf,0);
     return result;
-
 }
+
+extern "C"
+JNIEXPORT jintArray JNICALL
+Java_com_testdemo_holyg_gittest_ImgProcess_opencvRGBProcess(JNIEnv *env, jobject instance,jintArray buf,jint w,jint h){
+    jint *cbuf;
+    jboolean ptfalse = false;
+    cbuf = env->GetIntArrayElements(buf,&ptfalse);
+    if(cbuf == NULL){
+        LOGE("cbuf load ERROR. Methord returned");
+    }
+    Mat imgData(h,w,CV_8UC4,(unsigned char*)cbuf);
+    //the methord should be set at this positition
+    LOGE("IF YOU CAN SEE THIS LINE THAT MEAN JNI WORKING");
+    vector<Mat> channels;
+    split(imgData,channels);
+    float K = 0.5;
+    for (int i = 0; i < h; ++i) {
+        for (int j = 0; j < w; ++j) {
+            unsigned char Rpixel = channels[2].at<uchar>(i,j);
+            unsigned char Gpixel = channels[1].at<uchar>(i,j);
+            unsigned char Bpixel = channels[0].at<uchar>(i,j);
+            float result_c = Bpixel + K * Gpixel - K * Rpixel;
+            if(result_c<0){
+                result_c = 0;
+            }
+            else if(result_c>255){
+                result_c = 255;
+            }
+            channels[0].at<uchar>(i,j) = (unsigned char)result_c;
+        }
+    }
+    merge(channels,imgData);
+    int size = w*h;
+    jintArray result = env->NewIntArray(size);
+    env->SetIntArrayRegion(result,0,size,(jint*)imgData.data);
+    env->ReleaseIntArrayElements(buf,cbuf,0);
+    return result;
+}
+

@@ -12,8 +12,10 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
+import android.widget.Switch;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -26,9 +28,14 @@ public class picShowActivity extends AppCompatActivity {
     private ImageView imageView;
     private SeekBar SeekbarK;
     private SeekBar SeekbarK0;
-    private double K = (float) 1.65;
-    private double K0 = (float) 0.20;
+
     private Bitmap bitmap = null;
+    private Switch aSwitch;
+
+    private boolean argFlag = true;
+
+    double Kratio = 0.5;
+    double K0ratio =0.0;
 
     // Used to load the 'native-lib' library on application startup.
     static {
@@ -57,6 +64,12 @@ public class picShowActivity extends AppCompatActivity {
         SeekbarK0.setOnSeekBarChangeListener(seekBarK0ChangeListener);
         SeekbarK.setOnSeekBarChangeListener(seekBarKChangeListener);
 
+        aSwitch = findViewById(R.id.switch1);
+
+        aSwitch.setOnCheckedChangeListener(checkedChangeListener);
+
+
+
         //System.out.println(stringFromJNI());
 
         try {
@@ -66,7 +79,7 @@ public class picShowActivity extends AppCompatActivity {
             Log.e("[Android]", "目录为:" + uri);
             e.printStackTrace();
         }
-        resultBitmap = new ImgProcess().bitmap2jni(bitmap,K,K0);
+        resultBitmap = new ImgProcess().bitmap2jni(bitmap,Kratio,K0ratio,argFlag);
         //opencvPicShow(uri.toString());
         imageView = (ImageView)findViewById(R.id.imageView);
         imageView.setOnClickListener(imgListener);
@@ -96,10 +109,11 @@ public class picShowActivity extends AppCompatActivity {
                     if(SeekbarK.getVisibility()==View.VISIBLE){
                         SeekbarK.setVisibility(View.INVISIBLE);
                         SeekbarK0.setVisibility(View.INVISIBLE);
-
+                        aSwitch.setVisibility(View.INVISIBLE);
                     }else{
                         SeekbarK.setVisibility(View.VISIBLE);
                         SeekbarK0.setVisibility(View.VISIBLE);
+                        aSwitch.setVisibility(View.VISIBLE);
                     }
                     break;
 
@@ -112,9 +126,9 @@ public class picShowActivity extends AppCompatActivity {
     private SeekBar.OnSeekBarChangeListener seekBarKChangeListener = new SeekBar.OnSeekBarChangeListener() {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            double ratio = (double) progress/100;
-            K = 1.0 + ratio*1.3;
-            Log.e("seekbarlistener", "onProgressChanged: K = "+K+" ratio = "+ratio+"progress = "+progress);
+            Kratio = (double) progress/100;
+
+            Log.e("seekbarlistener", "onProgressChanged: Kratio = "+Kratio+"progress = "+progress);
 
         }
 
@@ -125,7 +139,7 @@ public class picShowActivity extends AppCompatActivity {
 
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
-            resultBitmap = new ImgProcess().bitmap2jni(bitmap,K,K0);
+            resultBitmap = new ImgProcess().bitmap2jni(bitmap,Kratio,K0ratio,argFlag);
             imageView.setImageBitmap(resultBitmap);
         }
     };
@@ -133,9 +147,9 @@ public class picShowActivity extends AppCompatActivity {
     private SeekBar.OnSeekBarChangeListener seekBarK0ChangeListener = new SeekBar.OnSeekBarChangeListener() {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            double ratio = (double)progress/100;
-            K0 = ratio*0.4;
-            Log.e("seekbarlistener", "onProgressChanged: K0 = "+K0 +" ratio = "+ratio+"progress = "+progress);
+            K0ratio = (double)progress/100;
+
+            Log.e("seekbarlistener", "onProgressChanged: K0ratio = "+K0ratio+"progress = "+progress);
 
         }
 
@@ -146,7 +160,23 @@ public class picShowActivity extends AppCompatActivity {
 
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
-            resultBitmap = new ImgProcess().bitmap2jni(bitmap,K,K0);
+            resultBitmap = new ImgProcess().bitmap2jni(bitmap,Kratio,K0ratio,argFlag);
+            imageView.setImageBitmap(resultBitmap);
+        }
+    };
+
+    private Switch.OnCheckedChangeListener checkedChangeListener = new CompoundButton.OnCheckedChangeListener(){
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if(isChecked){
+                argFlag = false;
+            }
+            else {
+                argFlag = true;
+            }
+            K0ratio = 0.0;
+            Kratio = 0.5;
+            resultBitmap = new ImgProcess().bitmap2jni(bitmap,Kratio,K0ratio,argFlag);
             imageView.setImageBitmap(resultBitmap);
         }
     };

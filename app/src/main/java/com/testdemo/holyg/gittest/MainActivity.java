@@ -139,11 +139,24 @@ public  class MainActivity extends AppCompatActivity implements View.OnClickList
                 final Intent intentcam = new Intent();
                 intentcam.setClass(MainActivity.this, Camera.class);
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    onPermissionRequests(Manifest.permission.WRITE_EXTERNAL_STORAGE, new OnBooleanListener() {
+                        @Override
+                        public void onClick(boolean bln) {
+                            if (bln) {
+                                Log.d("MainActivity", "读写存储进入权限");
+                            }
+                            else{
+                                Toast.makeText(MainActivity.this, "拍照或无法正常使用", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                        }
+                    });
+
                     onPermissionRequests(Manifest.permission.CAMERA, new OnBooleanListener() {
                         @Override
                         public void onClick(boolean bln) {
                             if (bln) {
-                                Log.d("MainActivity", "进入权限11");
+                                Log.d("MainActivity", "实时相机进入权限");
                                 startActivity(intentcam);
                             }
                             else{

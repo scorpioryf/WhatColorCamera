@@ -11,7 +11,7 @@ import android.view.WindowManager;
 
 import com.testdemo.holyg.gittest.camera.egl.EglSurfaceView;
 
-public class CameraEglSurfaceView extends EglSurfaceView implements CameraFboRender.OnSurfaceListener{
+public class  CameraEglSurfaceView extends EglSurfaceView implements CameraFboRender.OnSurfaceListener{
     private CameraHelper cameraHelper;
     private CameraFboRender render;
     private int cameraId = Camera.CameraInfo.CAMERA_FACING_BACK;
