@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
+import android.view.SurfaceView;
 import android.view.SurfaceHolder;
 import android.view.View;
 import android.graphics.Bitmap;
@@ -14,14 +15,13 @@ import android.graphics.Bitmap.Config;
 import android.widget.Toast;
 
 import com.testdemo.holyg.gittest.R;
-import com.testdemo.holyg.gittest.camera.CameraEglSurfaceView;
 
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class Camera extends AppCompatActivity {
+public class Camera extends AppCompatActivity{
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -40,7 +40,7 @@ public class Camera extends AppCompatActivity {
      */
     private static final int UI_ANIMATION_DELAY = 300;
     private final Handler mHideHandler = new Handler();
-    private CameraEglSurfaceView mSurfaceView;
+    private SurfaceView mSurfaceView;
     private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
         @Override
@@ -171,7 +171,7 @@ public class Camera extends AppCompatActivity {
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
 
-    @Override
+    /*@Override
     protected void onDestroy() {
         super.onDestroy();
         mSurfaceView.onDestroy();
@@ -181,5 +181,5 @@ public class Camera extends AppCompatActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         mSurfaceView.previewAngle(this);
-    }
+    }*/
 }

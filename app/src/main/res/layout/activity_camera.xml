@@ -14,7 +14,7 @@
          android:fitsSystemWindows. -->
 
 
-    <com.testdemo.holyg.gittest.camera.CameraEglSurfaceView
+    <SurfaceView
         android:id="@+id/surfaceView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
