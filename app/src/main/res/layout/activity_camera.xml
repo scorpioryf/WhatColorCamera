@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0099cc"
+    android:orientation="vertical"
+    android:theme="@style/Theme.AppCompat.NoActionBar"
     tools:context=".Camera">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
@@ -17,9 +19,10 @@
     <com.testdemo.holyg.gittest.camera.CameraEglSurfaceView
         android:id="@+id/surfaceView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:theme="@style/Theme.AppCompat.NoActionBar"/>
 
-    <FrameLayout
+    <!--<FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
@@ -44,6 +47,5 @@
                 android:text="@string/dummy_button" />
 
         </LinearLayout>
-    </FrameLayout>
-
-</FrameLayout>
+    </FrameLayout>-->
+</LinearLayout>

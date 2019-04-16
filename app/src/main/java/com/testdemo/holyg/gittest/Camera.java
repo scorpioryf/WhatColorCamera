@@ -41,7 +41,7 @@ public class Camera extends AppCompatActivity {
     private static final int UI_ANIMATION_DELAY = 300;
     private final Handler mHideHandler = new Handler();
     private CameraEglSurfaceView mSurfaceView;
-    private final Runnable mHidePart2Runnable = new Runnable() {
+    /*private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
         @Override
         public void run() {
@@ -76,13 +76,13 @@ public class Camera extends AppCompatActivity {
         public void run() {
             hide();
         }
-    };
+    };*/
     /**
      * Touch listener to use for in-layout UI controls to delay hiding the
      * system UI. This is to prevent the jarring behavior of controls going away
      * while interacting with activity UI.
      */
-    private final View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
+    /*private final View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View view, MotionEvent motionEvent) {
             if (AUTO_HIDE) {
@@ -90,35 +90,37 @@ public class Camera extends AppCompatActivity {
             }
             return false;
         }
-    };
+    };*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         setContentView(R.layout.activity_camera);
+
         mSurfaceView = findViewById(R.id.surfaceView);
 
-        mVisible = true;
-        mControlsView = findViewById(R.id.fullscreen_content_controls);
+        /*mVisible = true;
+        mControlsView = findViewById(R.id.fullscreen_content_controls);*/
 
 
 
         // Set up the user interaction to manually show or hide the system UI.
-        mSurfaceView.setOnClickListener(new View.OnClickListener() {
+        /*mSurfaceView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 toggle();
             }
-        });
+        });*/
 
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
-        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+        //findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
     }
 
-    @Override
+    /*@Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
 
@@ -126,17 +128,17 @@ public class Camera extends AppCompatActivity {
         // created, to briefly hint to the user that UI controls
         // are available.
         delayedHide(100);
-    }
+    }*/
 
-    private void toggle() {
+    /*private void toggle() {
         if (mVisible) {
             hide();
         } else {
             show();
         }
-    }
+    }*/
 
-    private void hide() {
+    /*private void hide() {
         // Hide UI first
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -148,9 +150,9 @@ public class Camera extends AppCompatActivity {
         // Schedule a runnable to remove the status and navigation bar after a delay
         mHideHandler.removeCallbacks(mShowPart2Runnable);
         mHideHandler.postDelayed(mHidePart2Runnable, UI_ANIMATION_DELAY);
-    }
+    }*/
 
-    @SuppressLint("InlinedApi")
+    /*@SuppressLint("InlinedApi")
     private void show() {
         // Show the system bar
         mSurfaceView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
@@ -160,17 +162,17 @@ public class Camera extends AppCompatActivity {
         // Schedule a runnable to display UI elements after a delay
         mHideHandler.removeCallbacks(mHidePart2Runnable);
         mHideHandler.postDelayed(mShowPart2Runnable, UI_ANIMATION_DELAY);
-    }
+    }*/
 
     /**
      * Schedules a call to hide() in delay milliseconds, canceling any
      * previously scheduled calls.
      */
-    private void delayedHide(int delayMillis) {
+    /*private void delayedHide(int delayMillis) {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
-
+*/
     @Override
     protected void onDestroy() {
         super.onDestroy();
