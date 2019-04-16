@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0099cc"
     tools:context=".Camera">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
@@ -14,36 +14,24 @@
          android:fitsSystemWindows. -->
 
 
-    <SurfaceView
-        android:id="@+id/surfaceView"
+    <RelativeLayout
+        android:id="@+id/previewLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:background="@color/black_overlay"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/sample_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World!"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="0dp"
+        android:onClick="clickText"/>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
-
-
-        <LinearLayout
-            android:id="@+id/fullscreen_content_controls"
-            style="?metaButtonBarStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:background="@color/black_overlay"
-            android:orientation="horizontal"
-            tools:ignore="UselessParent">
-
-            <Button
-                android:id="@+id/dummy_button"
-                style="?metaButtonBarButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/dummy_button" />
-
-        </LinearLayout>
-    </FrameLayout>
-
-</FrameLayout>
+</android.support.constraint.ConstraintLayout>
