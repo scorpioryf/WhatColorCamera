@@ -17,8 +17,7 @@
     <com.testdemo.holyg.gittest.camera.CameraEglSurfaceView
         android:id="@+id/surfaceView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/ic_launcher_background"/>
+        android:layout_height="match_parent" />
 
     <FrameLayout
         android:layout_width="match_parent"
