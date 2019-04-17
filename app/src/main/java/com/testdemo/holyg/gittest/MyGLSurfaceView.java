@@ -335,7 +335,7 @@ public class MyGLSurfaceView extends GLSurfaceView implements SurfaceHolder.Call
             leftUpPtMsg.arg1=myNDKOpencv.leftUpPt_x;
             leftUpPtMsg.arg2=myNDKOpencv.leftUpPt_y;
             getUiHandlerInterface.getUiHandler(leftUpPtMsg);
-//            //update the LeftUpPoint Location
+//            update the LeftUpPoint Location
 //            new Thread(){
 //                Handler handlerUi=new Handler();
 //                @Override

@@ -11,11 +11,11 @@ import java.security.KeyPairGenerator;
 
 
 public class MyNDKOpencv {
-    private double Kratio = 0.5;
-    private double K0ratio = 0.4;
+    private double Kratio = Camera.Kratio;
+    private double K0ratio = Camera.K0ratio;
     private boolean arg = true;
     private Bitmap resultImg;
-    private int dispWidth,disHeight,disDensity;
+    //private int dispWidth,disHeight,disDensity;
     public int leftUpPt_x=0,leftUpPt_y=0;
     MyNDKOpencv(){
     }

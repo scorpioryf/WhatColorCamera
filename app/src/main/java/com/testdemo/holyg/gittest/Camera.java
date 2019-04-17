@@ -21,6 +21,7 @@ import android.graphics.Bitmap.Config;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,10 @@ public class Camera extends AppCompatActivity{
     private RelativeLayout previewLayout;
     private MyGLSurfaceView myGLSurfaceView;
     private TextView textView;
+    private SeekBar seekBarK;
+    private SeekBar seekBarK0;
+    public static double Kratio;
+    public static double K0ratio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +59,11 @@ public class Camera extends AppCompatActivity{
             }
         });
         previewLayout.addView(myGLSurfaceView);
+
+        seekBarK = findViewById(R.id.seekBarK);
+        seekBarK0 = findViewById(R.id.seekBarK0);
+        seekBarK.setOnSeekBarChangeListener(seekBarKChangeListener);
+        seekBarK0.setOnSeekBarChangeListener(seekBarK0ChangeListener);
 
         textView = (TextView) findViewById(R.id.sample_text);
 //        ResultFromJni resultFromJni =MyNDKOpencv.structFromNative();
@@ -89,4 +99,38 @@ public class Camera extends AppCompatActivity{
         else myGLSurfaceView.model++;
         Toast.makeText(this,"Change Effect",Toast.LENGTH_SHORT).show();
     }
+
+    private SeekBar.OnSeekBarChangeListener seekBarKChangeListener = new SeekBar.OnSeekBarChangeListener() {
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            Kratio = (double) progress/100;
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+
+        }
+    };
+
+    private SeekBar.OnSeekBarChangeListener seekBarK0ChangeListener = new SeekBar.OnSeekBarChangeListener() {
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            K0ratio = (double)progress/100;
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+
+        }
+    };
 }
