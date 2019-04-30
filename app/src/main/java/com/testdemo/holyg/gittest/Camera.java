@@ -20,8 +20,10 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,8 +43,11 @@ public class Camera extends AppCompatActivity{
     private TextView textView;
     private SeekBar seekBarK;
     private SeekBar seekBarK0;
+    private Switch aSwitch;
+
     public static double Kratio;
     public static double K0ratio;
+    public static boolean arg = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +69,8 @@ public class Camera extends AppCompatActivity{
         seekBarK0 = findViewById(R.id.seekBarK0);
         seekBarK.setOnSeekBarChangeListener(seekBarKChangeListener);
         seekBarK0.setOnSeekBarChangeListener(seekBarK0ChangeListener);
+        aSwitch = findViewById(R.id.switch2);
+        aSwitch.setOnCheckedChangeListener(checkedChangeListener);
 
         textView = (TextView) findViewById(R.id.sample_text);
 //        ResultFromJni resultFromJni =MyNDKOpencv.structFromNative();
@@ -131,6 +138,19 @@ public class Camera extends AppCompatActivity{
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
 
+        }
+    };
+    private Switch.OnCheckedChangeListener checkedChangeListener = new CompoundButton.OnCheckedChangeListener(){
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if(isChecked){
+                arg = false;
+            }
+            else {
+                arg = true;
+            }
+            K0ratio = 0.0;
+            Kratio = 0.5;
         }
     };
 }

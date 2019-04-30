@@ -5,6 +5,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
 import android.graphics.Rect;
 import android.graphics.YuvImage;
+import android.widget.Switch;
+
+import com.testdemo.holyg.gittest.Camera;
 
 import java.io.ByteArrayOutputStream;
 import java.security.KeyPairGenerator;
@@ -13,12 +16,14 @@ import java.security.KeyPairGenerator;
 public class MyNDKOpencv {
     private double Kratio = Camera.Kratio;
     private double K0ratio = Camera.K0ratio;
-    private boolean arg = true;
+    private boolean arg = Camera.arg;
     private Bitmap resultImg;
+
     //private int dispWidth,disHeight,disDensity;
     public int leftUpPt_x=0,leftUpPt_y=0;
     MyNDKOpencv(){
     }
+
     public Bitmap scanfEffect(byte[] data, int srcWidth, int srcHeight,int model){
         BitmapFactory.Options newOpts = new BitmapFactory.Options();
         newOpts.inJustDecodeBounds = true;
