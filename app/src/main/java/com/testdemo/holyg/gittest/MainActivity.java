@@ -12,10 +12,14 @@ import android.content.Intent;
 import android.net.Uri;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.util.Log;
 import android.os.Build;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.io.File;
@@ -29,10 +33,21 @@ public  class MainActivity extends AppCompatActivity implements View.OnClickList
     public static final String PHOTO_FILE_NAME = "temp.png";
 
 
-    Button picBtn;
-    Button camBtn;
+    //private Button picBtn;
+    //private Button camBtn;
+
+    private LinearLayout picLayout;
+    private LinearLayout camLayout;
 
     File tempFile;
+    private ImageView imageViewPerson;
+    private ImageView imageViewRec;
+    private ImageView imageViewAlbum;
+    private ImageView imageViewAlbumText;
+    private ImageView imageViewCamera;
+    private ImageView imageViewCameraText;
+    private ImageView imageViewTitle;
+    private ImageView imageViewWhatColor;
 
     public void onPermissionRequests(String permission, OnBooleanListener onBooleanListener) {
         onPermissionListener = onBooleanListener;
@@ -85,11 +100,60 @@ public  class MainActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        picBtn = (Button) findViewById(R.id.picBtn);
-        camBtn = (Button) findViewById(R.id.cameraBtn);
+        if(getSupportActionBar()!=null){
+            getSupportActionBar().hide();
+            /*getWindow().setFlags(
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN
+            );*/
+        }
 
-        picBtn.setOnClickListener(this);
-        camBtn.setOnClickListener(this);
+        imageViewPerson = (ImageView)findViewById(R.id.imageViewPerson);
+        imageViewRec = (ImageView)findViewById(R.id.imageViewRec);
+        imageViewAlbum = (ImageView)findViewById(R.id.imageViewAlbum);
+        imageViewAlbumText = (ImageView)findViewById(R.id.imageViewAlbum_text);
+        imageViewCamera = (ImageView)findViewById(R.id.imageViewCamera);
+        imageViewCameraText = (ImageView)findViewById(R.id.imageViewCamera_text );
+        imageViewWhatColor = (ImageView)findViewById(R.id.imageViewWhatcolor);
+        imageViewTitle = (ImageView) findViewById(R.id.imageViewTitle);
+
+
+        //picBtn = (Button) findViewById(R.id.picBtn);
+        //camBtn = (Button) findViewById(R.id.cameraBtn);
+
+        picLayout = (LinearLayout)findViewById(R.id.pictureLayout);
+        camLayout = (LinearLayout)findViewById(R.id.cameraLayout);
+
+
+        //picBtn.setOnClickListener(this);
+        //camBtn.setOnClickListener(this);
+
+        picLayout.setOnClickListener(this);
+        camLayout.setOnClickListener(this);
+
+        imageViewPerson.setMaxHeight(1653);
+        imageViewPerson.setMaxWidth(931);
+
+        imageViewRec.setMaxHeight(636);
+        imageViewRec.setMaxWidth(1009);
+
+        imageViewTitle.setMaxHeight(65);
+        imageViewTitle.setMaxWidth(663);
+
+        imageViewWhatColor.setMaxHeight(52);
+        imageViewWhatColor.setMaxWidth(430);
+
+        imageViewAlbum.setMaxHeight(51);
+        imageViewAlbum.setMaxWidth(66);
+
+        imageViewAlbumText.setMaxHeight(40);
+        imageViewAlbumText.setMaxWidth(655);
+
+        imageViewCamera.setMaxHeight(57);
+        imageViewCamera.setMaxWidth(67);
+
+        imageViewCameraText.setMaxHeight(40);
+        imageViewCameraText.setMaxWidth(656);
     }
 
 
@@ -135,7 +199,7 @@ public  class MainActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.cameraBtn:
+            case R.id.cameraLayout:
                 final Intent intentcam = new Intent();
                 intentcam.setClass(MainActivity.this, Camera.class);
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -169,10 +233,11 @@ public  class MainActivity extends AppCompatActivity implements View.OnClickList
                 }
 
                 break;
-            case R.id.picBtn:
+            case R.id.pictureLayout:
                 new AlertDialog.Builder(this)
-                        .setTitle("Plz Chose Mode")
-                        .setItems(new String[]{"Open file", "Take photo"}, new DialogInterface.OnClickListener() {
+                        .setIcon(R.drawable.select_icon)
+                        .setTitle("请选择模式")
+                        .setItems(new String[]{"打开本地文件", "拍摄一张照片"}, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 switch (which){

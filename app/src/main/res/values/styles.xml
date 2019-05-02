@@ -21,11 +21,23 @@
     </style>
 
     <style name="s_true" parent="@android:style/TextAppearance.Small">
-        <item name="android:textColor">#33da33</item>
+        <item name="android:textColor">#918dfd</item>
     </style>
 
     <style name="s_false" parent="@android:style/TextAppearance.Small">
         <item name="android:textColor">#9b9b9b</item>
+    </style>
+    
+    <style name="My.TextAppearance" parent="Base.TextAppearance.AppCompat.Widget.Switch">
+        <item name="android:textSize">12dp</item>
+        <item name="android:textColor">#aa6aff</item>
+    </style>
+    <style name="my_seekbar_style">
+        <item name="android:thumb">@drawable/seekbar_thumb</item>
+        <item name="android:progressDrawable">@drawable/seekbar_bg</item>
+    </style>
+    <style name="NoActionbar" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
 </resources>

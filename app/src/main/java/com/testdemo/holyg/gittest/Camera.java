@@ -20,6 +20,7 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
@@ -44,6 +45,7 @@ public class Camera extends AppCompatActivity{
     private SeekBar seekBarK;
     private SeekBar seekBarK0;
     private Switch aSwitch;
+    private Button backBtn;
 
     public static double Kratio;
     public static double K0ratio;
@@ -71,6 +73,9 @@ public class Camera extends AppCompatActivity{
         seekBarK0.setOnSeekBarChangeListener(seekBarK0ChangeListener);
         aSwitch = findViewById(R.id.switch2);
         aSwitch.setOnCheckedChangeListener(checkedChangeListener);
+        backBtn = (Button)findViewById(R.id.back);
+
+        backBtn.setOnClickListener(buttonListener);
 
         textView = (TextView) findViewById(R.id.sample_text);
 //        ResultFromJni resultFromJni =MyNDKOpencv.structFromNative();
@@ -151,6 +156,18 @@ public class Camera extends AppCompatActivity{
             }
             K0ratio = 0.0;
             Kratio = 0.5;
+        }
+    };
+
+    private Button.OnClickListener buttonListener = new Button.OnClickListener(){
+        public void onClick(View v){
+            switch (v.getId()){
+                case R.id.back:
+                    finish();
+                    break;
+                default:
+                    break;
+            }
         }
     };
 }

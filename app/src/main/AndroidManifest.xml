@@ -44,7 +44,7 @@
             android:name=".Camera"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_camera"
-            android:theme="@style/FullscreenTheme" />
+            android:theme="@style/NoActionbar" />
     </application>
 
 </manifest>

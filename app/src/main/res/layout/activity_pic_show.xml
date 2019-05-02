@@ -26,23 +26,33 @@
         android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:background="@null"
-        android:drawableLeft="@mipmap/test0001"
+        android:drawableLeft="@mipmap/white_back_btn"
         android:paddingLeft="3dp"
         android:textSize="0sp" />
 
     <Switch
         android:id="@+id/switch1"
+        android:switchTextAppearance="@style/My.TextAppearance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:minWidth="20dp"
         android:layout_alignParentRight="true"
-        android:textOff="HSV"
-        android:textOn="RGB"
+        android:textOff="@string/hsv"
+        android:textOn="@string/rgb"
         android:thumb="@drawable/thumb"
         android:track="@drawable/track"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:showText="true" />
+
+    <ImageView
+        android:id="@+id/imageViewPicText"
+        android:layout_width="669px"
+        android:layout_height="45px"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="18dp"
+        android:layout_toEndOf="@+id/back"
+        app:srcCompat="@drawable/picture_conversion" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -54,6 +64,8 @@
             android:id="@+id/seekBarK"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:progressDrawable="@drawable/seekbar_bg"
+            android:maxHeight="5dp"
             android:layout_marginHorizontal="20dp"
             android:layout_marginBottom="10dp"
             android:max="100"
@@ -64,6 +76,8 @@
             android:id="@+id/seekBarK0"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:progressDrawable="@drawable/seekbar_bg"
+            android:maxHeight="5dp"
             android:layout_marginHorizontal="20dp"
             android:layout_marginBottom="10dp"
             android:max="100"

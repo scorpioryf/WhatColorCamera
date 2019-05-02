@@ -26,6 +26,7 @@ public class picShowActivity extends AppCompatActivity {
     private Bitmap resultBitmap;
     private Uri uri;
     private ImageView imageView;
+    private ImageView imageViewtext;
     private SeekBar SeekbarK;
     private SeekBar SeekbarK0;
 
@@ -54,6 +55,8 @@ public class picShowActivity extends AppCompatActivity {
         Intent intent = getIntent();
         uri = Uri.parse(intent.getStringExtra("imageUri"));
         System.out.println("Uri = "+uri);
+
+        imageViewtext = (ImageView)findViewById(R.id.imageViewPicText);
 
         back = (Button)findViewById(R.id.back);
         back.setOnClickListener(buttonListener);
@@ -110,10 +113,12 @@ public class picShowActivity extends AppCompatActivity {
                         SeekbarK.setVisibility(View.INVISIBLE);
                         SeekbarK0.setVisibility(View.INVISIBLE);
                         aSwitch.setVisibility(View.INVISIBLE);
+                        imageViewtext.setVisibility(View.INVISIBLE);
                     }else{
                         SeekbarK.setVisibility(View.VISIBLE);
                         SeekbarK0.setVisibility(View.VISIBLE);
                         aSwitch.setVisibility(View.VISIBLE);
+                        imageViewtext.setVisibility(View.VISIBLE);
                     }
                     break;
 

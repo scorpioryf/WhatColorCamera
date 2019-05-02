@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">GitTest</string>
+    <string name="app_name">蜗壳颜色相机</string>
 
     <string name="title_activity_camera">Camera</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="rgb">RGB</string>
-    <string name="hsv">HSV</string>
+    <string name="rgb">矫正</string>
+    <string name="hsv">增强</string>
 </resources>
